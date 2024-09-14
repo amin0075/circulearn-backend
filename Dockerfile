@@ -42,6 +42,4 @@ ENV DATABASE_URL=${DATABASE_URL}
 ENV SECRET=${SECRET}
 ENV PORT=${PORT}
 
-RUN npx prisma generate
-
 ENTRYPOINT ["node", "index.js"]

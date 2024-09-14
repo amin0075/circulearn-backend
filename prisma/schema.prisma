@@ -20,7 +20,9 @@ model quizResult {
 // feedback table to store feedbacks from ananymous users stored in the database as json
 model feedback {
   id        String   @id @default(cuid())
+    sessionId  String   @unique 
   feedback  Json
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+

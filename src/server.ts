@@ -2,33 +2,38 @@ import express from "express";
 import router from "./router";
 import morgan from "morgan";
 import cors from "cors";
-import { cookieSessionMiddleware } from "./middlewares/main.middleware";
+import session from "express-session";
 
 const app = express();
 
-const CUSTOM_LOGGER = (message: string) => (req, res, next) => {
-  console.log(`hello from ${message}`);
-  next();
-};
-
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+  preflightContinue: true
+}));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(CUSTOM_LOGGER("hello from custom logger"));
-app.use(cookieSessionMiddleware);
+// app.use(cookieSessionMiddleware);
+app.set('trust proxy', 1)
+app.use(session({
+  name: 'session',
+  secret: process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  }
+}));
 
-app.get("/", (req, res, next) => {
-  // console.log("hello from express!");
-  // res.status(200);
-  res.json({ message: "Hello" });
-});
-
-app.use("/api", router);
+app.use("/", router);
 
 app.use((err, req, res, next) => {
   console.log(err);
-  res.json({ message: `oops! there was an error! the error is: ${err}` });
+  res.json({ message: `Error: ${err.message}` });
 });
 
 export default app;

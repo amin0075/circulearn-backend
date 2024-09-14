@@ -28,7 +28,7 @@ services:
       SECRET: ${SECRET}
       PORT: ${PORT}
     ports:
-      - "${PORT}:${PORT}"
+      - "8080:${PORT}"
     networks:
       - postgres
     depends_on:
