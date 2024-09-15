@@ -8,11 +8,14 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "declaration": true,
-    "baseUrl": ".", // Ensure this line is present
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"] // Ensure this line is present
+      "@/*": ["src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts", 
+    "src/**/*.json", 
+],
   "exclude": ["node_modules", "dist"]
 }

@@ -1,7 +1,6 @@
 import { Router } from "express";
 import dbclient from "./db";
-import fs from "fs";
-import path from "path";
+import correctAnswers from "./lib/correctAnswers";
 
 const router = Router();
 
@@ -56,10 +55,6 @@ router.post("/quiz", async (req, res, next) => {
         message: "You have already submitted the quiz",
       });
     }
-
-    // Calculate quiz score and evaluation results
-    const correctAnswersPath = path.resolve(__dirname, "./lib/correctAnswers.json");
-    const correctAnswers = JSON.parse(fs.readFileSync(correctAnswersPath, "utf8"));
 
     let score = 0;
     const evaluationResults = correctAnswers.evaluation.map((section, sectionIndex) => {

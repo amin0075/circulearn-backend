@@ -11,5 +11,5 @@ import config from "./config";
 console.log(process.env.DATABASE_URL);
 
 app.listen(config.port, () => {
-  console.log(`Server running on http://172.187.161.136:${config.port}`);
+  // console.log(`Server running on http://172.187.161.136:${config.port}`);
 });

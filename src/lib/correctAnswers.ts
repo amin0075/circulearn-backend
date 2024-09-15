@@ -1,4 +1,4 @@
-{
+export default {
   "evaluation": [
     {
       "section": "Binary System",
